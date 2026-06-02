@@ -18,7 +18,6 @@ public class SecurityConfig {
 
     private final CustomUserDetailsService userDetailsService;
 
-    // Inyectamos tu servicio de base de datos en el constructor
     public SecurityConfig(CustomUserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
     }
@@ -28,7 +27,6 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    // Definimos el proveedor de autenticación que junta tu BD con el encriptador
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
@@ -63,7 +61,6 @@ public class SecurityConfig {
                 .permitAll()
             );
 
-        // Enlazamos nuestro proveedor personalizado de datos antes de construir la seguridad
         http.authenticationProvider(authenticationProvider());
 
         return http.build();
