@@ -7,6 +7,6 @@ import java.util.List;
 
 @Repository
 public interface MascotaRepository extends JpaRepository<Mascota, Long> {
-    // Obtener las mascotas de un cliente específico
+ 
     List<Mascota> findByDuenoId(Long usuarioId);
 }
