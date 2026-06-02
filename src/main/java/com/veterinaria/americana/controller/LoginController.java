@@ -11,7 +11,7 @@ public class LoginController {
 
     @GetMapping("/login")
     public String login() {
-        return "login"; // Debe buscar templates/login.html
+        return "login"; 
     }
 
     @GetMapping("/default")
@@ -19,7 +19,7 @@ public class LoginController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         
         if (auth != null) {
-            // Buscamos si tiene el rol de Administrador
+          
             boolean isAdmin = auth.getAuthorities().stream()
                     .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
             
@@ -27,7 +27,7 @@ public class LoginController {
                 return "redirect:/admin/dashboard";
             }
         }
-        // Por defecto, si no es Admin, va al panel de cliente
+        
         return "redirect:/cliente/panel";
     }
 }
