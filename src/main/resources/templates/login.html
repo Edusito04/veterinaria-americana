@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Iniciar Sesión - Veterinaria Americana</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .bg-gradient-side {
+            background: linear-gradient(135deg, rgba(13, 110, 253, 0.85), rgba(10, 50, 120, 0.9)), 
+                        url('https://images.unsplash.com/photo-1584132967334-10e028bd69f7?q=80&w=1200') no-repeat center center;
+            background-size: cover;
+        }
+        .login-card {
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+        .form-control {
+            border-radius: 8px;
+            padding: 12px;
+        }
+        .btn-submit {
+            border-radius: 8px;
+            padding: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(13, 110, 253, 0.3);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container-fluid h-100 p-0">
+        <div class="row h-100 g-0">
+            
+            <div class="col-lg-7 d-none d-lg-flex bg-gradient-side flex-column justify-content-center p-5 text-white position-relative">
+                <div class="p-5 max-w-md">
+                    <span class="badge bg-light text-primary mb-3 px-3 py-2 rounded-pill fw-bold text-uppercase tracking-wider small">
+                        🏥 Sistema Integral Clínico
+                    </span>
+                    <h1 class="display-3 fw-bold mb-4">La salud de tus mejores amigos <br><span class="text-warning">en buenas manos.</span></h1>
+                    <p class="lead text-white-50 mb-0">Gestiona citas, revisa historiales de vacunación y accede al control médico de tus mascotas de forma rápida, transparente y segura.</p>
+                </div>
+                <div class="position-absolute bottom-0 start-0 p-5 text-white-50 small">
+                    &copy; 2026 Veterinaria Americana. Todo el rigor profesional.
+                </div>
+            </div>
+
+            <div class="col-lg-5 d-flex align-items-center justify-content-center bg-light p-4">
+                <div class="card login-card w-100 p-4 p-sm-5 border-0 bg-white" style="max-width: 480px;">
+                    
+                    <div class="text-center mb-4">
+                        <div class="text-primary display-5 mb-2"><i class="bi bi-shield-plus"></i></div>
+                        <h2 class="fw-bold text-dark">¡Bienvenido de vuelta!</h2>
+                        <p class="text-muted small">Ingresa tus credenciales para acceder a la plataforma</p>
+                    </div>
+
+                    <div th:if="${param.error}" class="alert alert-danger d-flex align-items-center rounded-3 p-3 mb-4" role="alert">
+                        <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                        <div class="small">Correo o contraseña incorrectos. Por favor, verifica.</div>
+                    </div>
+                    <div th:if="${param.logout}" class="alert alert-success d-flex align-items-center rounded-3 p-3 mb-4" role="alert">
+                        <i class="bi bi-check-circle-fill me-2"></i>
+                        <div class="small">Sesión cerrada correctamente. ¡Vuelve pronto!</div>
+                    </div>
+                    <div th:if="${param.registrado}" class="alert alert-info d-flex align-items-center rounded-3 p-3 mb-4" role="alert">
+                        <i class="bi bi-info-circle-fill me-2"></i>
+                        <div class="small">¡Registro exitoso! Ya puedes iniciar sesión aquí.</div>
+                    </div>
+
+                    <form th:action="@{/login}" method="post">
+                        <div class="mb-3">
+                            <label class="form-label text-secondary small fw-bold">Correo Electrónico</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light text-muted border-end-0"><i class="bi bi-envelope"></i></span>
+                                <input type="email" name="username" class="form-control bg-light border-start-0" placeholder="ejemplo@veterinaria.com" required autofocus>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label text-secondary small fw-bold">Contraseña</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light text-muted border-end-0"><i class="bi bi-lock"></i></span>
+                                <input type="password" name="password" class="form-control bg-light border-start-0" placeholder="••••••••" required>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-submit w-100 text-uppercase tracking-wide mb-3">
+                            Ingresar <i class="bi bi-arrow-right-short ms-1"></i>
+                        </button>
+                    </form>
+
+                    <div class="text-center mt-3">
+                        <p class="text-muted small mb-0">¿No tienes una cuenta aún? 
+                            <a th:href="@{/registro}" class="text-primary fw-bold text-decoration-none">Regístrate aquí</a>
+                        </p>
+                        <a th:href="@{/}" class="d-inline-block mt-4 text-secondary small text-decoration-none">
+                            <i class="bi bi-house-door me-1"></i> Volver a la página de inicio
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

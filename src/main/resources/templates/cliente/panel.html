@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Mi Panel - Veterinaria Americana</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold" th:href="@{/cliente/panel}">🏥 Panel Cliente</a>
+            <div class="navbar-nav ms-auto">
+                <span class="nav-link text-light me-3" th:text="'Hola, ' + ${usuario.nombre}">Cliente</span>
+                <form th:action="@{/logout}" method="post" class="d-inline">
+                    <button type="submit" class="btn btn-sm btn-outline-danger">Cerrar Sesión</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container my-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="fw-bold text-secondary">🐾 Mis Mascotas</h2>
+            <div>
+                <a th:href="@{/cliente/mascota/nuevo}" class="btn btn-success me-2">+ Registrar Mascota</a>
+                <a th:href="@{/cliente/agenda/nuevo}" class="btn btn-primary">📅 Agendar Consulta</a>
+            </div>
+        </div>
+
+        <div th:if="${param.agendaExito}" class="alert alert-success alert-dismissible fade show" role="alert">
+            ¡Tu consulta ha sido agendada con éxito de manera transaccional!
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+        <div class="card shadow-sm border-0">
+            <div class="card-body p-0">
+                <table class="table table-hover align-middle mb-0" th:if="${not #lists.isEmpty(mascotas)}">
+                    <thead class="table-light">
+                        <tr>
+                            <th class="ps-4">Nombre</th>
+                            <th>Especie</th>
+                            <th>Raza</th>
+                            <th>Edad</th>
+                            <th class="text-end pe-4">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="mascota : ${mascotas}">
+                            <td class="fw-bold text-primary ps-4" th:text="${mascota.nombre}">Firulais</td>
+                            <td th:text="${mascota.especie}">Perro</td>
+                            <td th:text="${mascota.raza}">Pug</td>
+                            <td th:text="${mascota.edad} + ' años'">3 años</td>
+                            <td class="text-end pe-4">
+                                <a th:href="@{/cliente/mascota/historial/{id}(id=${mascota.id})}" class="btn btn-sm btn-outline-secondary">📜 Historial y Vacunas</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="text-center py-5" th:if="${#lists.isEmpty(mascotas)}">
+                    <p class="text-muted my-2">Aún no has registrado ninguna mascota en el sistema.</p>
+                    <a th:href="@{/cliente/mascota/nuevo}" class="btn btn-sm btn-outline-success mt-2">Registrar mi primera mascota</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
