@@ -29,7 +29,7 @@ public class AdminController {
         return "admin/atender-consulta";
     }
 
-    // CORRECCIÓN AQUÍ: Cambiamos "historialVacunacion" por "vacunas" para enlazar directo con tu Service
+    
     @PostMapping("/consulta/atender/guardar")
     public String registrarAtencion(
             @RequestParam("consultaId") Long consultaId,
