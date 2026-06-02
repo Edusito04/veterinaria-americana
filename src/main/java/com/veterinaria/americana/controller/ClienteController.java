@@ -27,7 +27,7 @@ public class ClienteController {
     @Autowired
     private UsuarioService usuarioService;
 
-    // 1. Panel de usuario principal
+  
     @GetMapping("/panel")
     public String panelCliente(Principal principal, Model model) {
         Usuario cliente = usuarioService.buscarPorEmail(principal.getName());
@@ -38,14 +38,14 @@ public class ClienteController {
         return "cliente/panel"; 
     }
 
-    // 2. Registrar Mascota (Formulario)
+
     @GetMapping("/mascota/nuevo")
     public String mostrarFormMascota(Model model) {
         model.addAttribute("mascota", new Mascota());
         return "cliente/registrar-mascota";
     }
 
-    // 3. Guardar Mascota (Mantenimiento CRUD)
+ 
     @PostMapping("/mascota/guardar")
     public String guardarMascota(@ModelAttribute("mascota") Mascota mascota, Principal principal) {
         Usuario cliente = usuarioService.buscarPorEmail(principal.getName());
@@ -54,7 +54,7 @@ public class ClienteController {
         return "redirect:/cliente/panel";
     }
 
-    // 4. Caso de Uso Transaccional: Formulario para agendar consulta
+
     @GetMapping("/agenda/nuevo")
     public String mostrarFormCita(Principal principal, Model model) {
         Usuario cliente = usuarioService.buscarPorEmail(principal.getName());
@@ -65,16 +65,16 @@ public class ClienteController {
         return "cliente/agendar-consulta";
     }
 
-    // 5. Guardar Cita de manera transaccional (Ruta corregida para el formulario)
+    
     @PostMapping("/agenda/guardar")
     public String agendarCita(@ModelAttribute("consulta") Consulta consulta) {
-        // Forzamos que la consulta inicialice como PENDIENTE de forma segura antes de guardar
+      
         consulta.setEstado("PENDIENTE");
         consultaService.agendarCita(consulta);
         return "redirect:/cliente/panel?agendaExito";
     }
 
-    // 6. Consultar historial clínico y de vacunación de una mascota
+  
     @GetMapping("/mascota/historial/{id}")
     public String verHistorialMascota(@PathVariable("id") Long id, Model model) {
         Mascota mascota = mascotaService.buscarPorId(id);
